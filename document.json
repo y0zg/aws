@@ -39,7 +39,7 @@
         ],
         "KeySchema": [
           {
-            "AttributeName": "id",
+            "AttributeName": "Id",
             "KeyType": "HASH"
           }
         ],
