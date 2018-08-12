@@ -8,7 +8,7 @@
       "Type": "Number",
       "MinValue": "1",
       "MaxValue": "1000",
-      "ContraintDescription": "must be between 1 and 1000"
+      "ConstraintDescription": "must be between 1 and 1000"
     },
     "WriteCapacityUnits": {
       "Description": "Provisioned write throughput",
