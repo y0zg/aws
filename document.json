@@ -1,0 +1,91 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Dynamo CloudFormation Lab",
+  "Parameters": {
+    "ReadCapacityUnits": {
+      "Description": "Provisioned read throughput",
+      "Default": "1",
+      "Type": "Number",
+      "MinValue": "1",
+      "MaxValue": "1000",
+      "ContraintDescription": "must be between 1 and 1000"
+    },
+    "WriteCapacityUnits": {
+      "Description": "Provisioned write throughput",
+      "Default": "1",
+      "Type": "Number",
+      "MinValue": "1",
+      "MaxValue": "1000",
+      "ConstraintDescription": "must be between 1 and 1000"
+    }
+  },
+  "Resources": {
+    "TableOfProducts": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "Id",
+            "AttributeType": "N"
+          },
+          {
+            "AttributeName": "ProductCategory",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "Price",
+            "AttributeType": "N"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": {
+            "Ref": "ReadCapacityUnits"
+          },
+          "WriteCapacityUnits": {
+            "Ref": "WriteCapacityUnits"
+          }
+        },
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "ProductCategory-Price-Index",
+            "KeySchema": [
+              {
+                "AttributeName": "ProductCategory",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "Price",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": {
+                "Ref": "ReadCapacityUnits"
+              },
+              "WriteCapacityUnits": {
+                "Ref": "WriteCapacityUnits"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "TableName": {
+      "Value": {
+        "Ref": "TableOfProducts"
+      }
+    },
+    "Description": "Test CloudFormation template"
+  }
+}
