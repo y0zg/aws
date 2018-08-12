@@ -83,9 +83,9 @@
   "Outputs": {
     "TableName": {
       "Value": {
-        "Ref": "TableOfProducts"
+        "Ref": "TableOfProducts",
+        "Description": "Test CloudFormation template"
       }
-    },
-    "Description": "Test CloudFormation template"
+    }
   }
 }
